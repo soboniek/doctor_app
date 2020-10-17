@@ -1,0 +1,44 @@
+{% extends '__base__.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Wybierz specjalizację</h2>
+            <p>Wybierz specjalizację a my znajdziejmy najbliższy wolny termin u dowolnego lekarza</p>
+        </div>
+
+        <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <select name="specialization" class="custom-select">
+                <option value="">----------</option>
+                {% for specialization in specializations %}
+                    <option value="{{ specialization.id }}">{{ specialization.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Textarea">Twoja wiadomość</label>
+            <textarea class="form-control" id="Textarea" name="description"></textarea>
+        </div>
+            <input class="btn btn-primary" type="submit" name="check_visit" value="Znajdź najbliższy termin">
+        </form>
+
+        <br><p><a href={% url 'make-reservation' visit_type_id=visit_type_id %}>Sprawdź najbliższy termin dla wybranej specjalizacji i lekarza</a></p>
+
+
+    </div>
+    </section>
+
+{% endblock %}
+
+
+<select name="cars" id="cars">
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select>

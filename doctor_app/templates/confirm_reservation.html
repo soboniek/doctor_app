@@ -1,0 +1,35 @@
+{% extends '__base__.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Potwierdzenie rezerwacji wizyty</h2>
+            <p>Potwierdź lub wycofaj rezerwację</p>
+        </div>
+
+        <ol>
+            <li>Rodzaj wizyty: {{ visit_type.get_name_display }} ({{ visit_type.description }})</li>
+            <li>Lekarz: {{ doctor.name }}</li>
+            <li>Specjalizacje:
+                {% for specialization in  doctor.specialization_set.all %}
+                    <ul><li>{{ specialization.name }}</li></ul>
+                {% endfor %}</li>
+            <li>Dzień: {{ date }}</li>
+            <li>Godzina: {{ time }}:00</li>
+            <li>Twoja wiadomość: {{ description }}</li>
+        </ol>
+
+        <h2>Koszt wizyty: {{ visit_type.price }} zł</h2>
+        <div class="d-flex">
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Potwierdź">
+            </form>
+            <a href="{% url 'choose-visit-type' %}"><input type="button" value="Wycofaj"></a>
+        </div>
+
+    </div>
+    </section>
+{% endblock %}

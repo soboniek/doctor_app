@@ -1,0 +1,21 @@
+{% extends '__base__.html' %}
+{% block content %}
+
+    <section id="user" class="user section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Wyloguj się</h2>
+            <p>{{ user.first_name }} {{ user.last_name }} - czy chcesz się wylogować?</p>
+        </div>
+
+        <form method="post" class="section-title">
+            {% csrf_token %}
+            <input class="btn btn-primary" type="submit" value="Wyloguj się">
+        </form>
+
+    </div>
+    </section>
+
+
+{% endblock %}

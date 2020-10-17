@@ -1,0 +1,67 @@
+{% extends '__base__.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakt</h2>
+                <p>Skontaktuj się z nami lub z naszymi specjalistami.</p>
+            </div>
+        </div>
+
+        <div>
+            <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10248.224949950634!2d19.9313889!3d50.0477778!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc6efab206a2ecca!2sICE%20Krakow%20Congress%20Centre!5e0!3m2!1spl!2spl!4v1601931278975!5m2!1spl!2spl" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-lg-4">
+                    <div class="info">
+                        <div class="address">
+                            <i class="icofont-google-map"></i>
+                            <h4>Lokalizacja:</h4>
+                            <p>30-302 Kraków, ul. Marii Konopnickiej 17</p>
+                        </div>
+
+                        <div class="email">
+                            <i class="icofont-envelope"></i>
+                            <h4>Email:</h4>
+                            <p>mydoctor@mydoctor.com</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="icofont-phone"></i>
+                            <h4>Telefon:</h4>
+                            <p>+(48) 111 222 333</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-8 mt-5 mt-lg-0">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-md-6 form-group mb-0">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+                            {{ form.subject|as_crispy_field }}
+                            {{ form.message|as_crispy_field }}
+                        <div class="mb-3">
+                            <p>{{ message_sent }}</p>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-primary" type="submit" name="send_email" value="Wyślij wiadomość">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

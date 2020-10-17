@@ -1,0 +1,44 @@
+{% extends '__base__.html' %}
+{% block content %}
+    <section id="user" class="user section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Nadchodzące wizyty</h2>
+        </div>
+
+
+        <ol>
+        {% for visit in incoming_visits %}
+            <li>Wizyta na dzień: <strong>{{ visit.day }}, godz. {{ visit.visit_hour }}:00</strong>
+                <ul>
+                    <li>Rodzaj wizyty: {{ visit.visit_type.get_name_display }}</li>
+                    <li>Lekarz: {{ visit.doctor.name }}</li>
+                    <li>Twoja wiadomość: {{ visit.description }}</li>
+                    <br>
+                </ul>
+            </li>
+        {% endfor %}
+        </ol>
+
+
+        <div class="section-title">
+            <h2>Odbyte wizyty</h2>
+        </div>
+
+        <ol>
+        {% for visit in past_visits %}
+            <li>Wizyta z dnia: <strong>{{ visit.day }}, godz. {{ visit.visit_hour }}:00</strong>
+                <ul>
+                    <li>Rodzaj wizyty: {{ visit.visit_type.get_name_display }}</li>
+                    <li>Lekarz: {{ visit.doctor.name }}</li>
+                    <li>Twoja wiadomość: {{ visit.description }}</li>
+                    <br>
+                </ul>
+            </li>
+        {% endfor %}
+        </ol>
+
+    </div>
+    </section>
+{% endblock %}

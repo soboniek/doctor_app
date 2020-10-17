@@ -1,0 +1,58 @@
+{% extends '__base__.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Zarezerwuj wizytę</h2>
+            <p>Wybierz specjalizację, lekarza i dzień wizyty</p>
+        </div>
+
+        <form method="post" id="Form" data-doctors-url="{% url 'ajax_load_doctors' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-primary" type="submit" name="check_visit" value="Sprawdź dostępność">
+            <p>{{ msg_day_full }}</p>
+        </form>
+
+        <p><a href={% url 'reservation_closest_dates' visit_type_id=visit_type_id %}>Sprawdź najbliższy termin dla wybranej specjalizacji (dowolny lekarz)</a></p>
+
+
+    </div>
+    </section>
+
+
+    <!-- List of doctors for chosen specialization -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_specialization").change(function () {
+            var url = $("#Form").attr("data-doctors-url");  // get the url of the `load_cities` view
+            var specialization = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                'specialization': specialization       // add the country id to the GET parameters
+                },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_doctor").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+            });
+        });
+    </script>
+
+    <!-- Date picker -->
+    <script>
+        $(function () {
+            $("#id_day").datepicker({
+                format:'yyyy-mm-dd',
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+{% endblock %}

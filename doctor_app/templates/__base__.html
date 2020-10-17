@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+
+    <!-- Basic Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicons -->
+{#    <link href={% static 'img/favicon.png' %} rel="icon">#}
+{#    <link href={% static 'img/apple-touch-icon.png'%} rel="apple-touch-icon">#}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+{#    <link href="{% static  'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">#}
+    <link href={% static 'vendor/icofont/icofont.min.css' %} rel="stylesheet">
+    <link href={% static 'vendor/boxicons/css/boxicons.min.css' %} rel="stylesheet">
+{#    <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">#}
+{#    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">#}
+    <link href={% static 'vendor/remixicon/remixicon.css' %} rel="stylesheet">
+{#    <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">#}
+{#    <link href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">#}
+
+    <title>Doctor App</title>
+</head>
+<body>
+
+    <!-- ======= Top Bar ======= -->
+    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+        <div class="container d-flex">
+              <div class="contact-info mr-auto">
+                    <i class="icofont-envelope"></i> <a href="#">mydoctor@mydoctor.com</a>
+                    <i class="icofont-phone"></i> +(48) 111 222 333
+                    <i class="icofont-google-map"></i> 30-302 Kraków, ul. Marii Konopnickiej 17
+              </div>
+              <div class="social-links">
+                    <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+                    <a href="#" class="skype"><i class="icofont-skype"></i></a>
+              </div>
+        </div>
+    </div>
+
+      <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo mr-auto"><a href="{% url 'main-page' %}">MyDoctor</a></h1>
+
+            <nav class="nav-menu d-none d-lg-block">
+                <ul>
+                    <li class="active"><a href="{% url 'main-page' %}">Strona główna</a></li>
+                    <li><a href="{% url 'specializations' %}">Specjalizacje</a></li>
+                    <li><a href="{% url 'doctors' %}">Lekarze</a></li>
+                    <li><a href="{% url 'contact' %}">Kontakt</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'user-history' %}">Twoje wizyty</a></li>
+                        <li><a href="{% url 'logout-user' %}">Wyloguj</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login-user' %}">Zaloguj</a></li>
+                        <li><a href="{% url 'create-user' %}">Rejestracja</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'choose-visit-type' %}" class="appointment-btn scrollto">Rezerwacja wizyty</a>
+            {% else %}
+                <a href="{% url 'login-user' %}" class="appointment-btn scrollto">Rezerwacja wizyty</a>
+            {% endif %}
+
+        </div>
+    </header>
+
+    <main id="main">
+    {% block content %}{% endblock content %}
+    </main>
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="container d-md-flex py-4">
+            <div class="mr-md-auto text-center text-md-left">
+                <div class="copyright">
+                    <strong><span>MyDoctor by Olga Łepecka</span></strong>
+                </div>
+                <div class="credits">
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

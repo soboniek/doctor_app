@@ -1,0 +1,68 @@
+{% extends '__base__.html' %}
+{% block content %}
+
+    <!-- ======= Departments Section ======= -->
+    <section id="departments" class="departments">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Specjalizacje</h2>
+            <p>Zapoznaj się ze specjalizacjami dostępnymi w naszej przychodni.</p>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-lg-3">
+                <ul class="nav nav-tabs flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-toggle="tab" href="#{{ specialization_list.0.slug }}">{{ specialization_list.0.name }}</a>
+                        </li>
+                    {% for specialization in specialization_list|slice:"1:" %}
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#{{ specialization.slug }}">{{ specialization.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-lg-9 mt-4 mt-lg-0">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="{{ specialization_list.0.slug }}">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-1">
+                                    <h3>{{ specialization_list.0.name }}</h3>
+                                    <p class="font-italic">Lekarze specjaliści:</p>
+                                    {% for doctor in specialization_list.0.doctor.all %}
+                                        <p>{{ doctor.name }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% for specialization in specialization_list|slice:"1:" %}
+                        <div class="tab-pane" id="{{ specialization.slug }}">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-1">
+                                    <p>
+                                        <h3>{{ specialization.name }}</h3>
+                                        <p class="font-italic">Lekarze specjaliści:</p>
+                                        {% for doctor in specialization.doctor.all %}
+                                            <p>{{ doctor.name }}</p>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% endblock %}
