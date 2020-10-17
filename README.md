@@ -1,2 +1,2 @@
 # my-doctor-app
-App for making reservations for doctor appointments.
+App for making reservations for doctor appointments written in Django.
