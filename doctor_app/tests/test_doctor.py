@@ -2,13 +2,102 @@ import pytest
 
 from doctor_app.models import Doctor, Specialization, Visit, VisitType
 
+from doctor_app.validators import date_not_today_or_past
 
+# class MainPageView(View)
 @pytest.mark.django_db
-def test_number_of_doctors(client):
-    response = client.get('/doctors/')
+def test_main_page(client):
+    response = client.get('')
     assert response.status_code == 200
 
 
+# class DoctorsView(ListView)
+@pytest.mark.django_db
+def test_add_doctor_to_db(client, set_up):
+    response = client.get('/doctors/')
+    assert response.status_code == 200
+    assert Doctor.objects.count() == 5
+
+
+# class SpecializationsView(ListView)
+@pytest.mark.django_db
+def test_add_specialization_to_db(client, set_up):
+    response = client.get('/specializations/')
+    assert response.status_code == 200
+    assert Specialization.objects.count() == 5
+
+
+# class ChooseVisitTypeView(ListView)
+@pytest.mark.django_db
+def test_add_visittype_to_db(client, set_up):
+    response = client.get('/make_reservation/')
+    assert response.status_code == 200
+    assert VisitType.objects.count() == 3
+
+
+# class MakeReservationView(LoginRequiredMixin, View):
+@pytest.mark.django_db
+def test_choose_visittype(client):
+    url = '/make_reservation/'
+    response = client.get(f'{url}4/')  # test wrong VisitType ID number
+    assert response.status_code == 404
+
+
+# test date validator
+@pytest.mark.django_db
+def test_date_validator():
+    assert date_not_today_or_past('2020-12-12')
+
+
+
+
+    # response = client.post(f'{url}3/', {'specialization': 'asd',
+    #                                     'doctor': 'asd',
+    #                                     'day': 'asd',
+    #                                     'description': 'asd'})
+    # assert response.status_code == 302
+    # assert response.context['specialization'] == 'asd'
+
+
+
+
+
+# import pytest
+# from exercises_app.models import Product
+#
+# @pytest.mark.django_db
+# def test_product_in_db(client, product):
+#     assert Product.objects.count() == 1
+#
+#
+# @pytest.mark.django_db
+# def test_product_detail_view(client, product):
+#     url = f'/product/{product.id}/'
+#     response = client.get(url)
+#     assert response.status_code == 200
+#     assert response.context['name'] == 'Żelazko'
+#     assert response.context['description'] == 'żelazko'
+#     assert response.context['price'] == 250.99
+#
+#
+# @pytest.mark.django_db
+# def test_product_add(client):
+#     url = '/product/add/'
+#     assert Product.objects.count() == 0
+#     response = client.post(url, {'name': 'Pralka', 'description': 'pralka', 'price': 350.98})
+#     assert response.status_code == 302
+#     assert Product.objects.count() == 1
+#     a = Product.objects.get(name='Pralka')
+#     assert a.price == 350.98
+#
+#
+# @pytest.mark.django_db
+# def test_three_products(client, products):
+#     url = ''
+#     response = client.get(url)
+#     assert response.status_code == 200
+#     assert Product.objects.count() == 3
+#     assert list(response.context['products']) == list(products)
 
 
 
