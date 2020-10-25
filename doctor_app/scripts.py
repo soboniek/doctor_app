@@ -33,10 +33,10 @@ def specialization_doctor_table():
             s.doctor.add(doc)
 
 
-def patient_table():
-    faker = Faker('pl_PL')
-    for i in range(20):
-        Patient.objects.create(first_name=f'{faker.first_name()}', last_name=f'{faker.last_name()}', email=f'{faker.email()}')
+# def patient_table():
+#     faker = Faker('pl_PL')
+#     for i in range(20):
+#         Patient.objects.create(first_name=f'{faker.first_name()}', last_name=f'{faker.last_name()}', email=f'{faker.email()}')
 
 
 # from doctor_app.scripts import *
