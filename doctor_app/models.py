@@ -5,19 +5,6 @@ from django.utils import timezone
 from django.utils.datetime_safe import date
 
 
-# class Patient(models.Model):
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     email = models.EmailField(max_length=254, unique=True, null=False)
-#
-#     @property
-#     def name(self):
-#         return f"{self.first_name} {self.last_name}"
-#
-#     def __str__(self):
-#         return self.name
-
-
 class Doctor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)

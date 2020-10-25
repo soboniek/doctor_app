@@ -9,18 +9,25 @@ from doctor_app.validators import date_not_today_or_past
 
 class MakeReservationForm(forms.Form):
     specialization = forms.ModelChoiceField(Specialization.objects.all(),
-                                            label='Wybierz specjalizację')
+                                            label='Wybierz specjalizację',
+                                            required=True)
     doctor = forms.ModelChoiceField(Doctor.objects.all(),
-                                    label='Wybierz lekarza')
+                                    label='Wybierz lekarza',
+                                    required=True)
     day = forms.DateField(label='Data wizyty',
                           initial=datetime.date.today() + datetime.timedelta(days=1),
                           validators=[date_not_today_or_past],
-                          input_formats=['%Y-%m-%d'])
+                          input_formats=['%Y-%m-%d'],
+                          required=True)
     description = forms.CharField(label='Twoja wiadomość (opcjonalnie)',
                                   widget=forms.Textarea(),
                                   required=False)
 
     def __init__(self, *args, **kwargs):
+        """
+        For dependent drop - down specialization - doctor. Using AJAX script.
+        'If' condition - for making Form valid (to put data in queryset).
+        """
         super().__init__(*args, **kwargs)
         self.fields['doctor'].queryset = Doctor.objects.none()
 

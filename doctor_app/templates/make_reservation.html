@@ -28,16 +28,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $("#id_specialization").change(function () {
-            var url = $("#Form").attr("data-doctors-url");  // get the url of the `load_cities` view
-            var specialization = $(this).val();  // get the selected country ID from the HTML input
+            var url = $("#Form").attr("data-doctors-url");   // get the url of the `doctors` view
+            var specialization = $(this).val();              // get the selected spec. ID from the HTML input
 
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            $.ajax({                                         // initialize an AJAX request
+                url: url,                                    // set the url of the request (= localhost:8000/hr/ajax/load-doctors/)
                 data: {
-                'specialization': specialization       // add the country id to the GET parameters
+                'specialization': specialization             // add the specialization id to the GET parameters
                 },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_doctor").html(data);  // replace the contents of the city input with the data that came from the server
+            success: function (data) {                       // `data` is the return of the `load_doctors` view function
+                $("#id_doctor").html(data);                  // replace the contents of the doctor input with the data that came from the server
                 }
             });
         });
@@ -51,7 +51,6 @@
             });
         });
     </script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 

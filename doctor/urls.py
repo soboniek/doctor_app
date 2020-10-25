@@ -25,10 +25,10 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('doctors/', DoctorsView.as_view(), name='doctors'),
     path('make_reservation/', ChooseVisitTypeView.as_view(), name='choose-visit-type'),
-    path('make_reservation/<int:visit_type_id>/', MakeReservationView.as_view(), name='make-reservation'),
+    re_path(r'make_reservation/(?P<visit_type_id>(\d)+)/', MakeReservationView.as_view(), name='make-reservation'),
     re_path(r'confirm_reservation/(?P<visit_type_id>(\d)+)-(?P<doctor_id>(\d)+)-(?P<date>\d{4}-\d{2}-\d{2})-(?P<time>(\d)+)-(?P<description>.*)/',
             ConfirmReservationView.as_view(), name='confirm-reservation'),
-    path('specialities/', SpecializationsView.as_view(), name='specializations'),
+    path('specializations/', SpecializationsView.as_view(), name='specializations'),
     path('reservation_closest_dates/<int:visit_type_id>/', ClosestDatesView.as_view(), name='reservation_closest_dates'),
     path('user_history/', UserHistoryView.as_view(), name='user-history'),
 

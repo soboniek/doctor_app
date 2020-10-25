@@ -19,6 +19,9 @@
                     <option value="{{ specialization.id }}">{{ specialization.name }}</option>
                 {% endfor %}
             </select>
+
+        {{ msg_spec_no_doctors }}
+
         </div>
         <div class="form-group">
             <label for="Textarea">Twoja wiadomość</label>
@@ -34,11 +37,3 @@
     </section>
 
 {% endblock %}
-
-
-<select name="cars" id="cars">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
